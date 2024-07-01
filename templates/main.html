@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>{% block title %}{% endblock %}</title>
+    {% load django_bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    {% block links %}{% endblock %}
+  </head>
+  <body>
+    <div>
+      <!-- Page content -->
+      <div class="container mt-5 h-75 min-vh-100">
+        {% block content %}
+        {% endblock %}
+      </div>
+
+      <!-- Footer -->
+      <footer class="py-5 bg-dark mt-2">
+        <div class="container">
+          <p class="m-0 text-center text-white">Copyright &copy; My project 2024, Powered by Django 5</p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

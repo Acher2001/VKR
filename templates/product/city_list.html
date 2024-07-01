@@ -1,0 +1,33 @@
+{% extends "main.html" %}
+
+{% block title %} {{ title }} {% endblock %}
+
+{% block content %}
+  {% if cities %}
+    <h2 class="text-center">Выберите город  из списка доступных</h2>
+    <div class="accordion" id="CitiesAccordion">
+    {% for city in cities %}
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="heading{{ city.id }}">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ city.id }}" aria-expanded="false" aria-controls="collapse{{ city.id }}">
+            <strong>{{ city.name }}</strong>
+          </button>
+        </h2>
+        <div id="collapse{{ city.id }}" class="accordion-collapse collapse" aria-labelledby="heading{{ city.id }}" data-bs-parent="#CitiesAccordion">
+          <div class="accordion-body">
+            <strong>Доступные категории</strong>
+            <form method="POST" action="{% url "product:product_list" %}?city={{ city.id }}">
+            {{ form.Categories }}
+            {% csrf_token %}
+            <br>
+            <input class="btn btn-primary btn-dark" type="submit" value="Далее">
+            </form>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    </div>
+  {% else %}
+  <p>Извините, в данный момент доступных городов нет</p>
+  {% endif %}
+{% endblock %}

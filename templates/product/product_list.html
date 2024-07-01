@@ -1,0 +1,50 @@
+{% extends "main.html" %}
+{% load static %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+  <div class="container">
+  <form action="{% url "product:check" %}" method="POST">
+  {% csrf_token %}
+  <table class="table table-striped">
+    <thead class="table-dark">
+      <tr>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col">цена</th>
+        <th scope="col">количество</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for product in products %}
+        <tr class="align-middle">
+          <th scope="row"><img src="/{{ product.image }}" class="img-thumbnail" alt=" "></th>
+          <td><a href="{{ product.product_link }}" class="link-dark">{{ product.name }}</a></td>
+          <td>{{ product.price }}р.</td>
+          <td>
+            <div data-mdb-input-init class="form-outline">
+                <input class="text-center" type="number" name="typeNumber{{product.id}}" value="0"/>
+            </div>
+          </td>
+        </tr>
+      {% endfor %}
+
+      <tr>
+        <td class="justify-content-end" colspan="2">
+          <div class="row justify-content-end">
+            <a href="/" class="btn btn-primary btn-dark">
+            Вернуться к списку городов
+            </a>
+          </div>
+        </td>
+        <td class="justify-content-end" colspan="2">
+          <div class="row justify-content-end">
+            <input class="btn btn-primary btn-dark" type="submit" name="form-check" value="Сформировать чек">
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  </form>
+  </div>
+
+{% endblock %}
